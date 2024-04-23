@@ -1,0 +1,4 @@
+---
+title: "Prediccion de Diabetes"
+---
+Autor : Adelmo Ochoa Nolasco
