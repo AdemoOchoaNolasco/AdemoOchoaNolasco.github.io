@@ -1,9 +1,11 @@
-name: "my-website"
+name: "Adelmo Ochoa"
 output_dir: "."
 navbar:
   title: "My Website"
   left:
     - text: "Home"
       href: index.html
+    - text: "Variables"
+      href: Variables.html
     - text: "About"
       href: about.html

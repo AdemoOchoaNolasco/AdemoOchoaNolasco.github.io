@@ -1,0 +1,111 @@
+---
+title: "Descripcion de Variables"
+output: html_document
+date: "2024-04-23"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Descripcion de las variables.
+
+```{r tipo_variable, echo=FALSE, warning=FALSE, out.width='100%'}
+knitr::include_graphics("G:/Mi unidad/REPO/Adelmo/AdemoOchoaNolasco.github.io/tipo_variable.png", error = FALSE)
+```
+
+
+```{r echo=TRUE, warning=FALSE}
+#1.CARGAR LIBRERIAS PARA EL ANALISIS DESCRIPTIVO
+library(dplyr)
+library(tidyverse)
+library(ggplot2)
+library(gridExtra)
+library(tibble)
+#2. Establecer el directorio de trabajo local
+getwd() #Consultar el directorio de trabajo actual 
+setwd("G:/Mi unidad/REPO/Adelmo/AdemoOchoaNolasco.github.io")  # Establecer el entorno de trabajo
+
+#3. Cargar datos 
+
+data_diabetes<-read.csv('./diabetes_prediction_dataset.csv', encoding = 'UTF-8', sep = ';')
+head(data_diabetes)
+str(data_diabetes)
+summary(data_diabetes)
+```
+
+
+
+```{r echo=TRUE, warning=FALSE}
+#4. Fitrado - creacion subset de interes
+
+## ADULTO JOVEN 25 A 44 años
+## ADULTO MADURO-MEDIO 45 a 59 años
+## ADULTO MAYOR 60 a más
+diabetes_25_44 <- data_diabetes %>% filter(age >=25) %>% filter(age <=44) %>% mutate(TIPO_ADULTO ="1")
+summary(diabetes_25_44)
+
+diabetes_45_59 <- data_diabetes %>% filter(age >=45) %>% filter(age <=59) %>% mutate(TIPO_ADULTO ="2")
+summary(diabetes_45_59)
+
+diabetes_60 <- data_diabetes %>% filter(age >=60) %>% mutate(TIPO_ADULTO ="3")
+summary(diabetes_60)
+
+diabetes_Grupoadultos <- bind_rows(diabetes_25_44,diabetes_45_59,diabetes_60)
+str(diabetes_Grupoadultos)
+
+diabetes_Grupoadultos_SI <-diabetes_Grupoadultos %>% filter(diabetes =="1") 
+summary(diabetes_Grupoadultos_SI)
+
+diabetes_Grupoadultos_NO <-diabetes_Grupoadultos %>% filter(diabetes =="0") 
+summary(diabetes_Grupoadultos_NO)
+```
+
+
+
+
+
+```{r echo=TRUE, warning=FALSE}
+########################################################################
+##### diabetes_Grupoadultos_NO
+########################################################################
+## Analizando la variable  bmi  - Body mass index 
+# Boxplot.
+
+boxplot(bmi ~ TIPO_ADULTO, data = diabetes_Grupoadultos_NO, 
+        xlab = "Tipo de adultos",
+        ylab = "Indice de masa corporal (bmi kg/m2)", 
+        main = "Diagrama de cajas del BMI por tipo de adultos - NO DIABETES",
+        notch = FALSE, 
+        varwidth = TRUE, 
+        col = c("green","red", "blue"),
+        names = c("Joven (25 a 44 años) ",
+                  "Medio (45 a 60 años)",
+                  "Mayor (mayor a 60 años)"))
+
+## Analizando la variable  HbA1c_level  - Hemoglobina glicosidica
+# Boxplot.
+boxplot(HbA1c_level ~ TIPO_ADULTO, data = diabetes_Grupoadultos_NO, 
+        xlab = "Tipo de adultos",
+        ylab = " HbA1c_level (%)", 
+        main = "Diagrama de cajas del HbA1c_level- NO DIABETES",
+        notch = FALSE, 
+        varwidth = TRUE, 
+        col = c("green","red", "blue"),
+        names = c("Joven (25 a 44 años) ",
+                  "Medio (45 a 60 años)",
+                  "Mayor (mayor a 60 años)"))
+
+## Analizando la variable   Glucosa en sangre
+# Boxplot.
+boxplot(blood_glucose_level ~ TIPO_ADULTO , data = diabetes_Grupoadultos_NO, 
+            xlab = "Tipo de adultos",
+            ylab = " Glucosa en sangre (mmg/dl)", 
+            main = "Diagrama de cajas del Glucosa en sangre - NO DIABETES",
+            notch = FALSE, 
+            varwidth = TRUE, 
+            col = c("green","red", "blue"),
+            names = c("Joven (25 a 44 años) ",
+                      "Medio (45 a 60 años)",
+                      "Mayor (mayor a 60 años)"))
+```
