@@ -10,9 +10,8 @@
 
 
 
-<meta name="date" content="2024-04-23" />
 
-<title>Descripcion de Variables</title>
+<title>Estadística Descriptiva</title>
 
 <script src="site_libs/header-attrs-2.26/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -30,6 +29,9 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -220,6 +222,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -227,6 +292,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -239,7 +314,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">My Website</a>
+      <a class="navbar-brand" href="index.html">Adelmo Ochoa</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -264,44 +339,70 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Descripcion de Variables</h1>
-<h4 class="date">2024-04-23</h4>
+<h1 class="title toc-ignore">Estadística Descriptiva</h1>
 
 </div>
 
 
-<div id="descripcion-de-las-variables." class="section level3">
-<h3>Descripcion de las variables.</h3>
-<p><img src="tipo_variable.png" width="100%" /></p>
+<div id="a.-descripcion-del-dataset" class="section level3">
+<h3><strong><b style = 'color : blue;'>A. DESCRIPCION DEL
+DATASET:</b></strong></h3>
+<p>El dataset escogido tiene una cantidad <strong>total de observaciones
+de 100 000 personas</strong>, las cueles tienen diversas edades. Se
+detalla las variables del dataset en la <strong>tabla 3</strong></p>
+<p><img src="tipo_variable.png" width="100%" /> <strong>Para realizar el
+analisis</strong> de acuerdo con el objetivo planteado, filtraremos el
+dataset inicial para solo quedarnos con los adultos. <strong>a) Adultos
+jovenes</strong> de 25 años a 44 años <strong>b) Adultos medios</strong>
+de 45 añoss a 59 años <strong>c) Adultos mayores</strong> mayores a 60
+años.</p>
+<p>El <strong>primer paso</strong> sera cargar las librerias que
+permitiran el analisis descriptivo de los datos</p>
 <pre class="r"><code>#1.CARGAR LIBRERIAS PARA EL ANALISIS DESCRIPTIVO
-library(dplyr)
-library(tidyverse)
-library(ggplot2)
-library(gridExtra)
-library(tibble)
-#2. Establecer el directorio de trabajo local
+library(&quot;ggplot2&quot;)
+library(&quot;tibble&quot;)
+library(&quot;tidyr&quot;)
+library(&quot;dplyr&quot;)
+library(&quot;forcats&quot;)
+library(&quot;purrr&quot;)
+library(&quot;prismatic&quot;)
+library(&quot;corrr&quot;)
+library(&quot;cowplot&quot;)
+library(&quot;ggforce&quot;)
+library(&quot;ggrepel&quot;)
+library(&quot;ggridges&quot;)
+library(&quot;ggsci&quot;)
+library(&quot;ggtext&quot;)
+library(&quot;ggthemes&quot;)
+library(&quot;summarytools&quot;)
+library(&quot;grid&quot;)
+library(&quot;gridExtra&quot;)
+library(&quot;patchwork&quot;)
+library(&quot;rcartocolor&quot;)
+library(&quot;scico&quot;)
+library(&quot;showtext&quot;)
+library(&quot;shiny&quot;)
+library(&quot;plotly&quot;)
+library(&quot;highcharter&quot;)
+library(&quot;echarts4r&quot;)</code></pre>
+<p>El <strong>segundo paso</strong> será establecer el directorio de
+trabajo y cargar los datos desde el directorio de trabajo</p>
+<pre class="r"><code>#2. Establecer el directorio de trabajo local
 getwd() #Consultar el directorio de trabajo actual </code></pre>
 <pre><code>## [1] &quot;G:/Mi unidad/REPO/Adelmo/AdemoOchoaNolasco.github.io&quot;</code></pre>
-<pre class="r"><code>setwd(&quot;G:/Mi unidad/REPO/Adelmo/AdemoOchoaNolasco.github.io&quot;)  # Establecer el entorno de trabajo
-
-#3. Cargar datos 
-
+<pre class="r"><code>setwd(&quot;G:/Mi unidad/REPO/Adelmo/AdemoOchoaNolasco.github.io&quot;)  # Establecer el entorno de trabajo</code></pre>
+<p>El <strong>tercer paso</strong> será revisar los tipos de variable
+con ls funcion y el calculo de algunos estadistivos univariados</p>
+<pre class="r"><code>#3. Cargar datos y sumario de datos
 data_diabetes&lt;-read.csv(&#39;./diabetes_prediction_dataset.csv&#39;, encoding = &#39;UTF-8&#39;, sep = &#39;;&#39;)
 head(data_diabetes)</code></pre>
-<pre><code>##   gender age hypertension heart_disease smoking_history   bmi HbA1c_level blood_glucose_level
-## 1 Female  80            0             1           never 25.19         6.6                 140
-## 2 Female  54            0             0         No Info 27.32         6.6                  80
-## 3   Male  28            0             0           never 27.32         5.7                 158
-## 4 Female  36            0             0         current 23.45         5.0                 155
-## 5   Male  76            1             1         current 20.14         4.8                 155
-## 6 Female  20            0             0           never 27.32         6.6                  85
-##   diabetes
-## 1        0
-## 2        0
-## 3        0
-## 4        0
-## 5        0
-## 6        0</code></pre>
+<pre><code>##   gender age hypertension heart_disease smoking_history   bmi HbA1c_level blood_glucose_level diabetes
+## 1 Female  80            0             1           never 25.19         6.6                 140        0
+## 2 Female  54            0             0         No Info 27.32         6.6                  80        0
+## 3   Male  28            0             0           never 27.32         5.7                 158        0
+## 4 Female  36            0             0         current 23.45         5.0                 155        0
+## 5   Male  76            1             1         current 20.14         4.8                 155        0
+## 6 Female  20            0             0           never 27.32         6.6                  85        0</code></pre>
 <pre class="r"><code>str(data_diabetes)</code></pre>
 <pre><code>## &#39;data.frame&#39;:    100000 obs. of  9 variables:
 ##  $ gender             : chr  &quot;Female&quot; &quot;Female&quot; &quot;Male&quot; &quot;Female&quot; ...
@@ -328,12 +429,18 @@ head(data_diabetes)</code></pre>
 ##  Mean   :27.32   Mean   :5.528   Mean   :138.1       Mean   :0.085  
 ##  3rd Qu.:29.58   3rd Qu.:6.200   3rd Qu.:159.0       3rd Qu.:0.000  
 ##  Max.   :95.69   Max.   :9.000   Max.   :300.0       Max.   :1.000</code></pre>
-<pre class="r"><code>#4. Fitrado - creacion subset de interes
-
+</div>
+<div id="b.-creacion-de-los-grupos-de-adultos---grupos-de-interes"
+class="section level3">
+<h3><strong><b style = 'color : blue;'>B. CREACION DE LOS GRUPOS DE
+ADULTOS - GRUPOS DE INTERES:</b></strong></h3>
+<p>Como <strong>cuarto paso</strong> será el filtrado por edades, con la
+finalidad de quedarnos con los grupos de interés. Una vez clasificado
+los tipos de adultos, por edades, se establece la variable
+TIPO_ADULTO</p>
+<pre class="r"><code>#4. Fitrado - creación subset de interés
 ## ADULTO JOVEN 25 A 44 años
-## ADULTO MADURO-MEDIO 45 a 59 años
-## ADULTO MAYOR 60 a más
-diabetes_25_44 &lt;- data_diabetes %&gt;% filter(age &gt;=25) %&gt;% filter(age &lt;=44) %&gt;% mutate(TIPO_ADULTO =&quot;1&quot;)
+diabetes_25_44 &lt;- data_diabetes %&gt;% filter(age &gt;=25) %&gt;% filter(age &lt;=44) %&gt;% mutate(TIPO_ADULTO =&quot;1_Adulto_Jovenes&quot;)
 summary(diabetes_25_44)</code></pre>
 <pre><code>##     gender               age         hypertension     heart_disease      smoking_history   
 ##  Length:26523       Min.   :25.00   Min.   :0.00000   Min.   :0.000000   Length:26523      
@@ -349,7 +456,8 @@ summary(diabetes_25_44)</code></pre>
 ##  Mean   :28.71   Mean   :5.449   Mean   :134.9       Mean   :0.03589                     
 ##  3rd Qu.:30.70   3rd Qu.:6.200   3rd Qu.:158.0       3rd Qu.:0.00000                     
 ##  Max.   :91.82   Max.   :9.000   Max.   :300.0       Max.   :1.00000</code></pre>
-<pre class="r"><code>diabetes_45_59 &lt;- data_diabetes %&gt;% filter(age &gt;=45) %&gt;% filter(age &lt;=59) %&gt;% mutate(TIPO_ADULTO =&quot;2&quot;)
+<pre class="r"><code>## ADULTO MADURO-MEDIO 45 a 59 años
+diabetes_45_59 &lt;- data_diabetes %&gt;% filter(age &gt;=45) %&gt;% filter(age &lt;=59) %&gt;% mutate(TIPO_ADULTO =&quot;2_Adulto_Medios&quot;)
 summary(diabetes_45_59)</code></pre>
 <pre><code>##     gender               age         hypertension    heart_disease     smoking_history   
 ##  Length:22537       Min.   :45.00   Min.   :0.0000   Min.   :0.00000   Length:22537      
@@ -365,7 +473,8 @@ summary(diabetes_45_59)</code></pre>
 ##  Mean   :29.48   Mean   :5.574   Mean   :139.6       Mean   :0.1092                     
 ##  3rd Qu.:31.92   3rd Qu.:6.200   3rd Qu.:159.0       3rd Qu.:0.0000                     
 ##  Max.   :88.72   Max.   :9.000   Max.   :300.0       Max.   :1.0000</code></pre>
-<pre class="r"><code>diabetes_60 &lt;- data_diabetes %&gt;% filter(age &gt;=60) %&gt;% mutate(TIPO_ADULTO =&quot;3&quot;)
+<pre class="r"><code>## ADULTO MAYOR 60 a más
+diabetes_60 &lt;- data_diabetes %&gt;% filter(age &gt;=60) %&gt;% mutate(TIPO_ADULTO =&quot;3_Adulto_Mayores&quot;)
 summary(diabetes_60)</code></pre>
 <pre><code>##     gender               age         hypertension    heart_disease    smoking_history   
 ##  Length:25055       Min.   :60.00   Min.   :0.0000   Min.   :0.0000   Length:25055      
@@ -381,6 +490,14 @@ summary(diabetes_60)</code></pre>
 ##  Mean   :28.55   Mean   :5.694   Mean   :145.2       Mean   :0.1968                     
 ##  3rd Qu.:30.47   3rd Qu.:6.500   3rd Qu.:159.0       3rd Qu.:0.0000                     
 ##  Max.   :88.76   Max.   :9.000   Max.   :300.0       Max.   :1.0000</code></pre>
+</div>
+<div id="c.-estadistica-descriptiva---grupos-de-interes"
+class="section level3">
+<h3><strong><b style = 'color : blue;'>C. ESTADISTICA DESCRIPTIVA -
+GRUPOS DE INTERES:</b></strong></h3>
+<p><strong>Finalmente</strong> una vez seleccionado los grupos de
+interes, se tiene el siguiente dataset actualizado diabetes_Grupoadultos
+Se revisa las variables</p>
 <pre class="r"><code>diabetes_Grupoadultos &lt;- bind_rows(diabetes_25_44,diabetes_45_59,diabetes_60)
 str(diabetes_Grupoadultos)</code></pre>
 <pre><code>## &#39;data.frame&#39;:    74115 obs. of  10 variables:
@@ -393,7 +510,280 @@ str(diabetes_Grupoadultos)</code></pre>
 ##  $ HbA1c_level        : num  5.7 5 6.5 4.8 5 5.7 5.7 3.5 6 6.1 ...
 ##  $ blood_glucose_level: int  158 155 200 145 100 158 80 159 90 126 ...
 ##  $ diabetes           : int  0 0 1 0 0 0 0 0 0 0 ...
-##  $ TIPO_ADULTO        : chr  &quot;1&quot; &quot;1&quot; &quot;1&quot; &quot;1&quot; ...</code></pre>
+##  $ TIPO_ADULTO        : chr  &quot;1_Adulto_Jovenes&quot; &quot;1_Adulto_Jovenes&quot; &quot;1_Adulto_Jovenes&quot; &quot;1_Adulto_Jovenes&quot; ...</code></pre>
+<p>Se realiza la tabla de frecuencias</p>
+<pre class="r"><code>freq(diabetes_Grupoadultos$TIPO_ADULTO , style = &quot;rmarkdown&quot;, justify = &quot;center&quot;, headings = TRUE, report.nas = FALSE)</code></pre>
+<pre><code>## setting plain.ascii to FALSE</code></pre>
+<pre><code>## ### Frequencies  
+## 
+## |        &amp;nbsp;        | Freq  |   %    | % Cum. |
+## |:--------------------:|:-----:|:------:|:------:|
+## | **1_Adulto_Jovenes** | 26523 | 35.79  | 35.79  |
+## | **2_Adulto_Medios**  | 22537 | 30.41  | 66.19  |
+## | **3_Adulto_Mayores** | 25055 | 33.81  | 100.00 |
+## |      **Total**       | 74115 | 100.00 | 100.00 |</code></pre>
+<pre class="r"><code>tabla_frecuencia &lt;- table(diabetes_Grupoadultos$TIPO_ADULTO, diabetes_Grupoadultos$gender, diabetes_Grupoadultos$diabetes)
+                               
+# Convertir la tabla de frecuencia en un marco de datos para mejor visualización
+df_tabla_frecuencia &lt;- as.data.frame(tabla_frecuencia)
+colnames(df_tabla_frecuencia) &lt;- c(&quot;Tipo de Adulto&quot;,&quot;Género&quot;,&quot;Diabetes Si (1) - No (0)&quot;,&quot;Freq&quot;)
+
+# Imprimir la tabla de frecuencias por tipo de adulto y genero
+knitr::kable(df_tabla_frecuencia, caption = &quot;Frecuencia de combinaciones de Tipo de adulto , género y presencia de diabetes&quot;)</code></pre>
+<table>
+<caption>Frecuencia de combinaciones de Tipo de adulto , género y
+presencia de diabetes</caption>
+<thead>
+<tr class="header">
+<th align="left">Tipo de Adulto</th>
+<th align="left">Género</th>
+<th align="left">Diabetes Si (1) - No (0)</th>
+<th align="right">Freq</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1_Adulto_Jovenes</td>
+<td align="left">Female</td>
+<td align="left">0</td>
+<td align="right">16177</td>
+</tr>
+<tr class="even">
+<td align="left">2_Adulto_Medios</td>
+<td align="left">Female</td>
+<td align="left">0</td>
+<td align="right">12030</td>
+</tr>
+<tr class="odd">
+<td align="left">3_Adulto_Mayores</td>
+<td align="left">Female</td>
+<td align="left">0</td>
+<td align="right">11976</td>
+</tr>
+<tr class="even">
+<td align="left">1_Adulto_Jovenes</td>
+<td align="left">Male</td>
+<td align="left">0</td>
+<td align="right">9391</td>
+</tr>
+<tr class="odd">
+<td align="left">2_Adulto_Medios</td>
+<td align="left">Male</td>
+<td align="left">0</td>
+<td align="right">8040</td>
+</tr>
+<tr class="even">
+<td align="left">3_Adulto_Mayores</td>
+<td align="left">Male</td>
+<td align="left">0</td>
+<td align="right">8147</td>
+</tr>
+<tr class="odd">
+<td align="left">1_Adulto_Jovenes</td>
+<td align="left">Other</td>
+<td align="left">0</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td align="left">2_Adulto_Medios</td>
+<td align="left">Other</td>
+<td align="left">0</td>
+<td align="right">6</td>
+</tr>
+<tr class="odd">
+<td align="left">3_Adulto_Mayores</td>
+<td align="left">Other</td>
+<td align="left">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">1_Adulto_Jovenes</td>
+<td align="left">Female</td>
+<td align="left">1</td>
+<td align="right">535</td>
+</tr>
+<tr class="odd">
+<td align="left">2_Adulto_Medios</td>
+<td align="left">Female</td>
+<td align="left">1</td>
+<td align="right">1239</td>
+</tr>
+<tr class="even">
+<td align="left">3_Adulto_Mayores</td>
+<td align="left">Female</td>
+<td align="left">1</td>
+<td align="right">2604</td>
+</tr>
+<tr class="odd">
+<td align="left">1_Adulto_Jovenes</td>
+<td align="left">Male</td>
+<td align="left">1</td>
+<td align="right">417</td>
+</tr>
+<tr class="even">
+<td align="left">2_Adulto_Medios</td>
+<td align="left">Male</td>
+<td align="left">1</td>
+<td align="right">1222</td>
+</tr>
+<tr class="odd">
+<td align="left">3_Adulto_Mayores</td>
+<td align="left">Male</td>
+<td align="left">1</td>
+<td align="right">2328</td>
+</tr>
+<tr class="even">
+<td align="left">1_Adulto_Jovenes</td>
+<td align="left">Other</td>
+<td align="left">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">2_Adulto_Medios</td>
+<td align="left">Other</td>
+<td align="left">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">3_Adulto_Mayores</td>
+<td align="left">Other</td>
+<td align="left">1</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Relación entre Glucosa en Sangre y BMI</strong> en Grupos de
+Adultos</p>
+<pre class="r"><code>library(ggplot2)
+ggplot(diabetes_Grupoadultos, aes(x = blood_glucose_level, y = bmi)) +
+  geom_point(color = &quot;orangered&quot;, alpha = .2) +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1)) +
+  labs(x = &quot;blood_glucose_level mg/dl&quot;, y = &quot;bmi (kg/m2)&quot;, title = &quot;Relación entre Glucosa en Sangre y BMI en Grupos de Adultos\nsin Diabetes (0) y con Diabetes(1)&quot;) +
+  facet_grid(TIPO_ADULTO ~ diabetes)</code></pre>
+<p><img src="Variables_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<pre class="r"><code>g &lt;-
+  ggplot(diabetes_Grupoadultos, aes(x = TIPO_ADULTO, y = HbA1c_level,
+                   color = TIPO_ADULTO)) +
+    labs(x = &quot;TIPO_ADULTO&quot;, y = &quot;HbA1c_level&quot;) +
+    scale_color_brewer(palette = &quot;Dark2&quot;, guide = &quot;none&quot;)
+
+g + geom_boxplot() + facet_wrap(~ diabetes)</code></pre>
+<p><img src="Variables_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+</div>
+<div id="d.-tabla-de-estadísticos-univariados---adultos-jovenes"
+class="section level3">
+<h3><strong><b style = 'color : blue;'>D. Tabla de estadísticos
+univariados - Adultos jovenes:</b></strong></h3>
+<p>Se calcula los estadisticos univariados para el grupo de adultos
+jovenes</p>
+<pre class="r"><code>descr(diabetes_25_44$bmi, transpose = TRUE, 
+      stats = c(&quot;N.Valid&quot;, &quot;min&quot;,&quot;q1&quot;,&quot;med&quot;,&quot;mean&quot;,&quot;sd&quot;,&quot;q3&quot;,&quot;max&quot;,&quot;iqr&quot;),
+      style = &quot;rmarkdown&quot;, justify = &quot;center&quot;, headings = T)</code></pre>
+<pre><code>## ### Descriptive Statistics  
+## #### value  
+## **N:** 26523  
+## 
+## |  &amp;nbsp;   | N.Valid  |  Min  |  Q1   | Median | Mean  | Std.Dev |  Q3   |  Max  | IQR  |
+## |:---------:|:--------:|:-----:|:-----:|:------:|:-----:|:-------:|:-----:|:-----:|:----:|
+## | **value** | 26523.00 | 10.08 | 25.39 | 27.32  | 28.71 |  6.40   | 30.70 | 91.82 | 5.31 |</code></pre>
+<pre class="r"><code>descr(diabetes_25_44$HbA1c_level, transpose = TRUE, 
+      stats = c(&quot;N.Valid&quot;, &quot;min&quot;,&quot;q1&quot;,&quot;med&quot;,&quot;mean&quot;,&quot;sd&quot;,&quot;q3&quot;,&quot;max&quot;,&quot;iqr&quot;),
+      style = &quot;rmarkdown&quot;, justify = &quot;center&quot;, headings = T)</code></pre>
+<pre><code>## ### Descriptive Statistics  
+## #### value  
+## **N:** 26523  
+## 
+## |  &amp;nbsp;   | N.Valid  | Min  |  Q1  | Median | Mean | Std.Dev |  Q3  | Max  | IQR  |
+## |:---------:|:--------:|:----:|:----:|:------:|:----:|:-------:|:----:|:----:|:----:|
+## | **value** | 26523.00 | 3.50 | 4.80 |  5.80  | 5.45 |  1.02   | 6.20 | 9.00 | 1.40 |</code></pre>
+<pre class="r"><code>descr(diabetes_25_44$blood_glucose_level, transpose = TRUE, 
+      stats = c(&quot;N.Valid&quot;, &quot;min&quot;,&quot;q1&quot;,&quot;med&quot;,&quot;mean&quot;,&quot;sd&quot;,&quot;q3&quot;,&quot;max&quot;,&quot;iqr&quot;),
+      style = &quot;rmarkdown&quot;, justify = &quot;center&quot;, headings = T)</code></pre>
+<pre><code>## ### Descriptive Statistics  
+## #### value  
+## **N:** 26523  
+## 
+## |  &amp;nbsp;   | N.Valid  |  Min  |   Q1   | Median |  Mean  | Std.Dev |   Q3   |  Max   |  IQR  |
+## |:---------:|:--------:|:-----:|:------:|:------:|:------:|:-------:|:------:|:------:|:-----:|
+## | **value** | 26523.00 | 80.00 | 100.00 | 140.00 | 134.87 |  37.27  | 158.00 | 300.00 | 58.00 |</code></pre>
+</div>
+<div id="e.-tabla-de-estadísticos-univariados---adultos-medios"
+class="section level3">
+<h3><strong><b style = 'color : blue;'>E. Tabla de estadísticos
+univariados - Adultos medios:</b></strong></h3>
+<p>Se calcula los estadisticos univariados para el grupo de adultos
+medios</p>
+<pre class="r"><code>descr(diabetes_45_59$bmi, transpose = TRUE, 
+      stats = c(&quot;N.Valid&quot;, &quot;min&quot;,&quot;q1&quot;,&quot;med&quot;,&quot;mean&quot;,&quot;sd&quot;,&quot;q3&quot;,&quot;max&quot;,&quot;iqr&quot;),
+      style = &quot;rmarkdown&quot;, justify = &quot;center&quot;, headings = T)</code></pre>
+<pre><code>## ### Descriptive Statistics  
+## #### value  
+## **N:** 22537  
+## 
+## |  &amp;nbsp;   | N.Valid  |  Min  |  Q1   | Median | Mean  | Std.Dev |  Q3   |  Max  | IQR  |
+## |:---------:|:--------:|:-----:|:-----:|:------:|:-----:|:-------:|:-----:|:-----:|:----:|
+## | **value** | 22537.00 | 10.50 | 26.56 | 27.32  | 29.48 |  6.28   | 31.92 | 88.72 | 5.36 |</code></pre>
+<pre class="r"><code>descr(diabetes_45_59$HbA1c_level, transpose = TRUE, 
+      stats = c(&quot;N.Valid&quot;, &quot;min&quot;,&quot;q1&quot;,&quot;med&quot;,&quot;mean&quot;,&quot;sd&quot;,&quot;q3&quot;,&quot;max&quot;,&quot;iqr&quot;),
+      style = &quot;rmarkdown&quot;, justify = &quot;center&quot;, headings = T)</code></pre>
+<pre><code>## ### Descriptive Statistics  
+## #### value  
+## **N:** 22537  
+## 
+## |  &amp;nbsp;   | N.Valid  | Min  |  Q1  | Median | Mean | Std.Dev |  Q3  | Max  | IQR  |
+## |:---------:|:--------:|:----:|:----:|:------:|:----:|:-------:|:----:|:----:|:----:|
+## | **value** | 22537.00 | 3.50 | 4.80 |  5.80  | 5.57 |  1.09   | 6.20 | 9.00 | 1.40 |</code></pre>
+<pre class="r"><code>descr(diabetes_45_59$blood_glucose_level, transpose = TRUE, 
+      stats = c(&quot;N.Valid&quot;, &quot;min&quot;,&quot;q1&quot;,&quot;med&quot;,&quot;mean&quot;,&quot;sd&quot;,&quot;q3&quot;,&quot;max&quot;,&quot;iqr&quot;),
+      style = &quot;rmarkdown&quot;, justify = &quot;center&quot;, headings = T)</code></pre>
+<pre><code>## ### Descriptive Statistics  
+## #### value  
+## **N:** 22537  
+## 
+## |  &amp;nbsp;   | N.Valid  |  Min  |   Q1   | Median |  Mean  | Std.Dev |   Q3   |  Max   |  IQR  |
+## |:---------:|:--------:|:-----:|:------:|:------:|:------:|:-------:|:------:|:------:|:-----:|
+## | **value** | 22537.00 | 80.00 | 100.00 | 140.00 | 139.62 |  41.95  | 159.00 | 300.00 | 59.00 |</code></pre>
+</div>
+<div id="f.-tabla-de-estadísticos-univariados---adultos-mayores"
+class="section level3">
+<h3><strong><b style = 'color : blue;'>F. Tabla de estadísticos
+univariados - Adultos mayores:</b></strong></h3>
+<p>Se calcula los estadisticos univariados para el grupo de adultos
+mayores</p>
+<pre class="r"><code>descr(diabetes_60$bmi, transpose = TRUE, 
+      stats = c(&quot;N.Valid&quot;, &quot;min&quot;,&quot;q1&quot;,&quot;med&quot;,&quot;mean&quot;,&quot;sd&quot;,&quot;q3&quot;,&quot;max&quot;,&quot;iqr&quot;),
+      style = &quot;rmarkdown&quot;, justify = &quot;center&quot;, headings = T)</code></pre>
+<pre><code>## ### Descriptive Statistics  
+## #### value  
+## **N:** 25055  
+## 
+## |  &amp;nbsp;   | N.Valid  |  Min  |  Q1   | Median | Mean  | Std.Dev |  Q3   |  Max  | IQR  |
+## |:---------:|:--------:|:-----:|:-----:|:------:|:-----:|:-------:|:-----:|:-----:|:----:|
+## | **value** | 25055.00 | 10.01 | 26.04 | 27.32  | 28.55 |  5.46   | 30.47 | 88.76 | 4.43 |</code></pre>
+<pre class="r"><code>descr(diabetes_60$HbA1c_level, transpose = TRUE, 
+      stats = c(&quot;N.Valid&quot;, &quot;min&quot;,&quot;q1&quot;,&quot;med&quot;,&quot;mean&quot;,&quot;sd&quot;,&quot;q3&quot;,&quot;max&quot;,&quot;iqr&quot;),
+      style = &quot;rmarkdown&quot;, justify = &quot;center&quot;, headings = T)</code></pre>
+<pre><code>## ### Descriptive Statistics  
+## #### value  
+## **N:** 25055  
+## 
+## |  &amp;nbsp;   | N.Valid  | Min  |  Q1  | Median | Mean | Std.Dev |  Q3  | Max  | IQR  |
+## |:---------:|:--------:|:----:|:----:|:------:|:----:|:-------:|:----:|:----:|:----:|
+## | **value** | 25055.00 | 3.50 | 4.80 |  5.80  | 5.69 |  1.17   | 6.50 | 9.00 | 1.70 |</code></pre>
+<pre class="r"><code>descr(diabetes_60$blood_glucose_level, transpose = TRUE, 
+      stats = c(&quot;N.Valid&quot;, &quot;min&quot;,&quot;q1&quot;,&quot;med&quot;,&quot;mean&quot;,&quot;sd&quot;,&quot;q3&quot;,&quot;max&quot;,&quot;iqr&quot;),
+      style = &quot;rmarkdown&quot;, justify = &quot;center&quot;, headings = T)</code></pre>
+<pre><code>## ### Descriptive Statistics  
+## #### value  
+## **N:** 25055  
+## 
+## |  &amp;nbsp;   | N.Valid  |  Min  |   Q1   | Median |  Mean  | Std.Dev |   Q3   |  Max   |  IQR  |
+## |:---------:|:--------:|:-----:|:------:|:------:|:------:|:-------:|:------:|:------:|:-----:|
+## | **value** | 25055.00 | 80.00 | 126.00 | 145.00 | 145.18 |  47.21  | 159.00 | 300.00 | 33.00 |</code></pre>
+</div>
+<div id="resumen-del-grupo-de-personas-con-diabetes"
+class="section level3">
+<h3>Resumen del grupo de Personas con Diabetes</h3>
 <pre class="r"><code>diabetes_Grupoadultos_SI &lt;-diabetes_Grupoadultos %&gt;% filter(diabetes ==&quot;1&quot;) 
 summary(diabetes_Grupoadultos_SI)</code></pre>
 <pre><code>##     gender               age         hypertension    heart_disease    smoking_history   
@@ -410,69 +800,136 @@ summary(diabetes_Grupoadultos_SI)</code></pre>
 ##  Mean   :32.12   Mean   :6.934   Mean   :194.1       Mean   :1                     
 ##  3rd Qu.:36.03   3rd Qu.:7.500   3rd Qu.:240.0       3rd Qu.:1                     
 ##  Max.   :88.72   Max.   :9.000   Max.   :300.0       Max.   :1</code></pre>
-<pre class="r"><code>diabetes_Grupoadultos_NO &lt;-diabetes_Grupoadultos %&gt;% filter(diabetes ==&quot;0&quot;) 
-summary(diabetes_Grupoadultos_NO)</code></pre>
-<pre><code>##     gender               age         hypertension     heart_disease     smoking_history   
-##  Length:65770       Min.   :25.00   Min.   :0.00000   Min.   :0.00000   Length:65770      
-##  Class :character   1st Qu.:38.00   1st Qu.:0.00000   1st Qu.:0.00000   Class :character  
-##  Mode  :character   Median :50.00   Median :0.00000   Median :0.00000   Mode  :character  
-##                     Mean   :50.89   Mean   :0.08147   Mean   :0.04055                     
-##                     3rd Qu.:63.00   3rd Qu.:0.00000   3rd Qu.:0.00000                     
-##                     Max.   :80.00   Max.   :1.00000   Max.   :1.00000                     
-##       bmi         HbA1c_level    blood_glucose_level    diabetes TIPO_ADULTO       
-##  Min.   :10.01   Min.   :3.500   Min.   : 80.0       Min.   :0   Length:65770      
-##  1st Qu.:25.69   1st Qu.:4.800   1st Qu.:100.0       1st Qu.:0   Class :character  
-##  Median :27.32   Median :5.800   Median :140.0       Median :0   Mode  :character  
-##  Mean   :28.48   Mean   :5.397   Mean   :132.9       Mean   :0                     
-##  3rd Qu.:30.29   3rd Qu.:6.200   3rd Qu.:158.0       3rd Qu.:0                     
-##  Max.   :91.82   Max.   :6.600   Max.   :200.0       Max.   :0</code></pre>
-<pre class="r"><code>########################################################################
-##### diabetes_Grupoadultos_NO
-########################################################################
-## Analizando la variable  bmi  - Body mass index 
+</div>
+<div id="g.-analizando-la-variable-bmi---body-mass-index"
+class="section level3">
+<h3><strong><b style = 'color : blue;'>G. Analizando la variable bmi -
+Body mass index:</b></strong></h3>
+<p><strong>Comentario</strong> Las medianas de los personas con diabetes
+son mayores a las que no tienen la enfermedad . Para todos los grupos de
+adultos.</p>
+<pre class="r"><code>## Analizando la variable  bmi  - Body mass index 
 # Boxplot.
+g &lt;-
+  ggplot(diabetes_Grupoadultos, aes(x = TIPO_ADULTO, y = bmi,
+                   color = TIPO_ADULTO)) +
+    labs(x = &quot;TIPO_ADULTO&quot;, y = &quot;bmi (kg/m2)&quot;, title = &quot;Diagrama de cajas del BMI en Grupos de Adultos\nsin Diabetes (0) y con Diabetes(1)&quot;) +
+    scale_color_brewer(palette = &quot;Dark2&quot;, guide = &quot;none&quot;)
 
-boxplot(bmi ~ TIPO_ADULTO, data = diabetes_Grupoadultos_NO, 
-        xlab = &quot;Tipo de adultos&quot;,
-        ylab = &quot;Indice de masa corporal (bmi kg/m2)&quot;, 
-        main = &quot;Diagrama de cajas del BMI por tipo de adultos - NO DIABETES&quot;,
-        notch = FALSE, 
-        varwidth = TRUE, 
-        col = c(&quot;green&quot;,&quot;red&quot;, &quot;blue&quot;),
-        names = c(&quot;Joven (25 a 44 años) &quot;,
-                  &quot;Medio (45 a 60 años)&quot;,
-                  &quot;Mayor (mayor a 60 años)&quot;))</code></pre>
-<p><img src="Variables_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+g + geom_boxplot() +    stat_boxplot(geom = &quot;errorbar&quot;,
+               width = 0.25) + facet_wrap(~ diabetes)</code></pre>
+<p><img src="Variables_files/figure-html/unnamed-chunk-16-1.png" width="672" />
+### <strong><b style = 'color : blue;'>H. Analizando la variable
+HbA1c_level - Hemoglobina glicosidica:</b></strong>
+<strong>Comentario</strong> Las medianas de los personas con diabetes
+son mayores a las que no tienen la enfermedad . Para todos los grupos de
+adultos.</p>
 <pre class="r"><code>## Analizando la variable  HbA1c_level  - Hemoglobina glicosidica
-# Boxplot.
-boxplot(HbA1c_level ~ TIPO_ADULTO, data = diabetes_Grupoadultos_NO, 
-        xlab = &quot;Tipo de adultos&quot;,
-        ylab = &quot; HbA1c_level (%)&quot;, 
-        main = &quot;Diagrama de cajas del HbA1c_level- NO DIABETES&quot;,
-        notch = FALSE, 
-        varwidth = TRUE, 
-        col = c(&quot;green&quot;,&quot;red&quot;, &quot;blue&quot;),
-        names = c(&quot;Joven (25 a 44 años) &quot;,
-                  &quot;Medio (45 a 60 años)&quot;,
-                  &quot;Mayor (mayor a 60 años)&quot;))</code></pre>
-<p><img src="Variables_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
+g &lt;-
+  ggplot(diabetes_Grupoadultos, aes(x = TIPO_ADULTO, y = HbA1c_level,
+                   color = TIPO_ADULTO)) +
+    labs(x = &quot;TIPO_ADULTO&quot;, y = &quot;HbA1c_level %&quot;, title = &quot;Diagrama de cajas del HbA1c_level en Grupos de Adultos\nsin Diabetes (0) y con Diabetes(1)&quot;) +
+    scale_color_brewer(palette = &quot;Dark2&quot;, guide = &quot;none&quot;)
+
+g + geom_boxplot() + stat_boxplot(geom = &quot;errorbar&quot;,
+               width = 0.25) + facet_wrap(~ diabetes)</code></pre>
+<p><img src="Variables_files/figure-html/unnamed-chunk-17-1.png" width="672" />
+### <strong><b style = 'color : blue;'>I. Analizando la variable Glucosa
+en sangre:</b></strong></p>
+<p><strong>Comentario</strong> Las medianas de los personas con diabetes
+son mayores a las que no tienen la enfermedad . Para todos los grupos de
+adultos.</p>
 <pre class="r"><code>## Analizando la variable   Glucosa en sangre
-# Boxplot.
-boxplot(blood_glucose_level ~ TIPO_ADULTO , data = diabetes_Grupoadultos_NO, 
-            xlab = &quot;Tipo de adultos&quot;,
-            ylab = &quot; Glucosa en sangre (mmg/dl)&quot;, 
-            main = &quot;Diagrama de cajas del Glucosa en sangre - NO DIABETES&quot;,
-            notch = FALSE, 
-            varwidth = TRUE, 
-            col = c(&quot;green&quot;,&quot;red&quot;, &quot;blue&quot;),
-            names = c(&quot;Joven (25 a 44 años) &quot;,
-                      &quot;Medio (45 a 60 años)&quot;,
-                      &quot;Mayor (mayor a 60 años)&quot;))</code></pre>
-<p><img src="Variables_files/figure-html/unnamed-chunk-3-3.png" width="672" /></p>
+g &lt;-
+  ggplot(diabetes_Grupoadultos, aes(x = TIPO_ADULTO, y = blood_glucose_level,
+                   color = TIPO_ADULTO)) +
+    labs(x = &quot;TIPO_ADULTO&quot;, y = &quot;blood_glucose_level mg/dl&quot;, title = &quot;Diagrama de cajas del Glucosa en sangre en Grupos de Adultos\nsin Diabetes (0) y con Diabetes(1)&quot;) +
+    scale_color_brewer(palette = &quot;Dark2&quot;, guide = &quot;none&quot;)
+
+g + geom_boxplot() + stat_boxplot(geom = &quot;errorbar&quot;,
+               width = 0.25) + facet_wrap(~ diabetes)</code></pre>
+<p><img src="Variables_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+</div>
+<div id="j.-prueba-de-correlacion-de-pearson" class="section level3">
+<h3><strong><b style = 'color : blue;'>J. PRUEBA DE CORRELACION DE
+PEARSON:</b></strong></h3>
+<p>Estamos usando Pearson porque todas las variables tienen una
+<strong>distribución bastante normal</strong> 1</p>
+<pre class="r"><code>corm &lt;-
+  diabetes_Grupoadultos |&gt;
+  dplyr::select(bmi, blood_glucose_level, HbA1c_level, age,heart_disease,hypertension,diabetes) |&gt;
+  corrr::correlate(diagonal = 1) |&gt;
+  corrr::shave(upper = FALSE)</code></pre>
+<pre><code>## Correlation computed with
+## • Method: &#39;pearson&#39;
+## • Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
+<pre class="r"><code>corm</code></pre>
+<pre><code>## # A tibble: 7 × 8
+##   term                  bmi blood_glucose_level HbA1c_level     age heart_disease hypertension diabetes
+##   &lt;chr&gt;               &lt;dbl&gt;               &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;        &lt;dbl&gt;    &lt;dbl&gt;
+## 1 bmi                     1              0.0879      0.0796 -0.0229        0.0171       0.103     0.190
+## 2 blood_glucose_level    NA              1           0.199   0.0983        0.0691       0.0816    0.455
+## 3 HbA1c_level            NA             NA           1       0.0931        0.0682       0.0804    0.443
+## 4 age                    NA             NA          NA       1             0.232        0.204     0.213
+## 5 heart_disease          NA             NA          NA      NA             1            0.104     0.157
+## 6 hypertension           NA             NA          NA      NA            NA            1         0.177
+## 7 diabetes               NA             NA          NA      NA            NA           NA         1</code></pre>
+<pre class="r"><code>corm &lt;-
+  diabetes_Grupoadultos |&gt;
+  dplyr::select(bmi, blood_glucose_level, HbA1c_level, age, heart_disease, hypertension) |&gt;
+  corrr::correlate(diagonal = 1) |&gt;
+  corrr::shave(upper = FALSE)</code></pre>
+<pre><code>## Correlation computed with
+## • Method: &#39;pearson&#39;
+## • Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
+<pre class="r"><code>corm</code></pre>
+<pre><code>## # A tibble: 6 × 7
+##   term                  bmi blood_glucose_level HbA1c_level     age heart_disease hypertension
+##   &lt;chr&gt;               &lt;dbl&gt;               &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;        &lt;dbl&gt;
+## 1 bmi                     1              0.0879      0.0796 -0.0229        0.0171       0.103 
+## 2 blood_glucose_level    NA              1           0.199   0.0983        0.0691       0.0816
+## 3 HbA1c_level            NA             NA           1       0.0931        0.0682       0.0804
+## 4 age                    NA             NA          NA       1             0.232        0.204 
+## 5 heart_disease          NA             NA          NA      NA             1            0.104 
+## 6 hypertension           NA             NA          NA      NA            NA            1</code></pre>
+<pre class="r"><code>corm &lt;- corm |&gt;
+  tidyr::pivot_longer(
+    cols = -term,
+    names_to = &quot;colname&quot;,
+    values_to = &quot;corr&quot;
+  ) |&gt;
+  dplyr::mutate(
+    rowname = forcats::fct_inorder(term),
+    colname = forcats::fct_inorder(colname),
+    label = dplyr::if_else(is.na(corr), &quot;&quot;, sprintf(&quot;%1.2f&quot;, corr))
+  )</code></pre>
+<pre class="r"><code>ggplot(corm, aes(rowname, fct_rev(colname),
+                 fill = corr)) +
+  geom_tile() +
+  geom_text(aes(
+    label = label,
+    color = abs(corr) &lt; .75
+  )) +
+  coord_fixed(expand = FALSE) +
+  scale_color_manual(
+    values = c(&quot;white&quot;, &quot;black&quot;),
+    guide = &quot;none&quot;
+  ) +
+  scale_fill_distiller(
+    palette = &quot;PuOr&quot;, na.value = &quot;white&quot;,
+    direction = 1, limits = c(-1, 1),
+    name = &quot;Pearson\nCorrelation:&quot;
+  ) +
+  labs(x = NULL, y = NULL) +
+  theme(panel.border = element_rect(color = NA, fill = NA),
+        legend.position = c(.85, .8))</code></pre>
+<p><img src="Variables_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 </div>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -505,6 +962,35 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

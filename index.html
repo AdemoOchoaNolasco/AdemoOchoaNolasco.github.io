@@ -11,7 +11,7 @@
 
 
 
-<title>Prediccion de Diabetes</title>
+<title>Producto Academico</title>
 
 <script src="site_libs/header-attrs-2.26/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -29,6 +29,9 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -219,6 +222,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -226,6 +292,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -238,7 +314,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">My Website</a>
+      <a class="navbar-brand" href="index.html">Adelmo Ochoa</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -263,7 +339,7 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Prediccion de Diabetes</h1>
+<h1 class="title toc-ignore">Producto Academico</h1>
 
 </div>
 
@@ -271,25 +347,31 @@ $(document).ready(function () {
 <div
 id="titulo-análisis-de-variables-que-intervienen-en-la-enfermedad-de-diabetes-y-su-incidencia-en-la-población-de-adultos-jóvenes-en-lima-metropolitana---2024"
 class="section level4">
-<h4>Titulo: “Análisis de variables que intervienen en la enfermedad de
+<h4><strong><b style = 'color : red;'>Titulo:</b></strong>
+<strong>“Análisis de variables que intervienen en la enfermedad de
 Diabetes y su incidencia en la población de adultos jóvenes, en Lima
-Metropolitana - 2024”</h4>
+Metropolitana - 2024”</strong></h4>
 </div>
 <div id="maestria-maestría-en-ciencias-de-datos" class="section level4">
-<h4>Maestria: Maestría en Ciencias de Datos</h4>
+<h4><strong><b style = 'color : red;'>Maestria:</b></strong> Maestría en
+Ciencias de Datos</h4>
 </div>
 <div id="autor-adelmo-ochoa-nolasco" class="section level4">
-<h4>Autor : Adelmo Ochoa Nolasco</h4>
+<h4><strong><b style = 'color : red;'>Autor:</b></strong> Adelmo Ochoa
+Nolasco</h4>
 </div>
-<div id="curso-introduccion-a-los-modelos-estadísticos"
+<div id="curso-introducción-a-los-modelos-estadísticos"
 class="section level4">
-<h4>Curso : Introduccion a los Modelos Estadísticos</h4>
+<h4><strong><b style = 'color : red;'>Curso:</b></strong> Introducción a
+los Modelos Estadísticos</h4>
 </div>
 <div id="docente-dante-santiago-torres-manrique" class="section level4">
-<h4>Docente: Dante Santiago Torres Manrique</h4>
+<h4><strong><b style = 'color : red;'>Docente:</b></strong> Dante
+Santiago Torres Manrique</h4>
 </div>
-<div id="introduccion" class="section level3">
-<h3>INTRODUCCION</h3>
+<div id="a.-introducción" class="section level3">
+<h3><strong><b style = 'color : blue;'>A.
+INTRODUCCIÓN:</b></strong></h3>
 <ol style="list-style-type: lower-alpha">
 <li><p>El presente informe, tiene como objetivo analizar las variables
 que intervienen en la enfermedad de diabetes para un sector de la
@@ -313,32 +395,68 @@ un conjunto de ocho (8) variables independientes o predictores (Vi):
 y cuatro (4) del tipo categórico.</p></li>
 </ol>
 </div>
-<div id="marco-teorico" class="section level3">
-<h3>MARCO TEORICO</h3>
-<p><img src="marco.png" width="100%" /></p>
+<div id="b.-marco-teórico" class="section level3">
+<h3><strong><b style = 'color : blue;'>B. MARCO
+TEÓRICO:</b></strong></h3>
+<div id="definicion-de-diabetes" class="section level4">
+<h4><strong><b style = 'color : blue;'>Definicion de
+Diabetes:</b></strong></h4>
+<p>La diabetes es una “enfermedad crónica que se produce cuando el
+páncreas no produce suficiente insulina o cuando el cuerpo no puede
+utilizar de forma eficaz la insulina que produce”. La insulina es una
+hormona que regula la azúcar en sangre (OPS/OMS); caracterizado por los
+altos niveles de azúcar en la sangre, que con el tiempo se traduce en
+daños graves en el corazón, los vasos sanguíneos, los riñones, los ojos
+y el sistema nervioso, factores que pueden causar discapacidad y muerte
+prematura.</p>
 </div>
-<div id="planteamiento" class="section level3">
-<h3>PLANTEAMIENTO</h3>
+<div id="tipos-de-diabetes" class="section level4">
+<h4><strong><b style = 'color : blue;'>Tipos de
+Diabetes:</b></strong></h4>
+<p>De acuerdo con la literatura, se presenan tres tipos de diabetes a)
+diabetes tipo I, esta referido a la deficiente produccion de la insulina
+y se de en la poblacion juvenil, b) diabetes tipo II, referido a que el
+organismo no usa la insulina eficazmente y se da en la población adulta,
+c) diabetes gestacional, esta referido al transtorno transitorio que se
+produce durante el embarazo según el Informe Mundial sobre la Diabetes
+de la OMS(2016)</p>
+<p>Se presenta la tabla de valores referenciales <strong>tabla
+2</strong></p>
+<p><img src="t2.png" width="100%" /></p>
 </div>
-<div id="problema-general" class="section level2">
-<h2>Problema General :</h2>
-<p>¿Existe diferencia significativa de los grupos de población de
-Adultos jóvenes, Adulto medio y Adulto mayor y la enfermedad de
-diabetes, en Lima Metropolitana, 2024?</p>
 </div>
-<div id="objetivo-general" class="section level2">
-<h2>Objetivo General:</h2>
-<p>Determinar la diferencia significativa entre los grupos que presentan
-la enfermedad de diabetes, en Lima Metropolitana, 2024.</p>
+<div id="c.-planteamiento" class="section level3">
+<h3><strong><b style = 'color : blue;'>C.
+PLANTEAMIENTO:</b></strong></h3>
+<div id="problema-general" class="section level4">
+<h4><strong><b style = 'color : blue;'>1. Problema
+General:</b></strong></h4>
+<p><strong>¿Existe diferencia significativa de los grupos de población
+de Adultos jóvenes, Adulto medio y Adulto mayor y la enfermedad de
+diabetes, en Lima Metropolitana, 2024</strong></p>
 </div>
-<div id="hipótesis-general" class="section level2">
-<h2>Hipótesis General</h2>
-<p>Existe diferencia significativa entre los grupos que presentan la
-enfermedad de diabetes, en Lima Metropolitana, 2024.</p>
+<div id="objetivo-general" class="section level4">
+<h4><strong><b style = 'color : blue;'>2. Objetivo
+General:</b></strong></h4>
+<p><strong>Determinar la diferencia significativa entre los grupos que
+presentan la enfermedad de diabetes, en Lima Metropolitana,
+2024.</strong></p>
+</div>
+<div id="hipótesis-general" class="section level4">
+<h4><strong><b style = 'color : blue;'>3. Hipótesis
+General:</b></strong></h4>
+<p><strong>Existe diferencia significativa entre los grupos que
+presentan la enfermedad de diabetes, en Lima Metropolitana,
+2024.</strong></p>
+<p>Se formula la prueba estadistica en la <strong>tabla 2</strong></p>
+<p><img src="t3.png" width="100%" /></p>
+</div>
 </div>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -371,6 +489,35 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

@@ -1,111 +1,309 @@
 ---
-title: "Descripcion de Variables"
-output: html_document
-date: "2024-04-23"
+title: "Estadística Descriptiva"
+output: 
+  html_document:
+    toc: TRUE
+    toc_float: TRUE
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-### Descripcion de las variables.
+### __<b style = 'color : blue;'>A. DESCRIPCION DEL DATASET:</b>__
+
+El dataset escogido tiene una cantidad __total de observaciones  de 100 000 personas__, las cueles tienen diversas edades. Se detalla las variables del dataset en la __tabla 3__ 
 
 ```{r tipo_variable, echo=FALSE, warning=FALSE, out.width='100%'}
 knitr::include_graphics("G:/Mi unidad/REPO/Adelmo/AdemoOchoaNolasco.github.io/tipo_variable.png", error = FALSE)
 ```
+__Para realizar el analisis__ de acuerdo con el objetivo planteado, filtraremos el dataset inicial para solo quedarnos con los adultos.
+__a) Adultos jovenes__ de 25 años a 44 años
+__b) Adultos medios__ de 45 añoss a 59 años
+__c) Adultos mayores__ mayores a 60 años.
 
+El __primer paso__ sera cargar las librerias que permitiran el analisis descriptivo de los datos
 
-```{r echo=TRUE, warning=FALSE}
+```{r echo=TRUE, message=FALSE, warning=FALSE}
 #1.CARGAR LIBRERIAS PARA EL ANALISIS DESCRIPTIVO
-library(dplyr)
-library(tidyverse)
-library(ggplot2)
-library(gridExtra)
-library(tibble)
+library("ggplot2")
+library("tibble")
+library("tidyr")
+library("dplyr")
+library("forcats")
+library("purrr")
+library("prismatic")
+library("corrr")
+library("cowplot")
+library("ggforce")
+library("ggrepel")
+library("ggridges")
+library("ggsci")
+library("ggtext")
+library("ggthemes")
+library("summarytools")
+library("grid")
+library("gridExtra")
+library("patchwork")
+library("rcartocolor")
+library("scico")
+library("showtext")
+library("shiny")
+library("plotly")
+library("highcharter")
+library("echarts4r")
+```
+
+El __segundo paso__ será establecer el directorio de trabajo y cargar los datos desde
+el directorio de trabajo
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
 #2. Establecer el directorio de trabajo local
 getwd() #Consultar el directorio de trabajo actual 
+```
+
+```{r eval=TRUE, message=FALSE, warning=FALSE}
 setwd("G:/Mi unidad/REPO/Adelmo/AdemoOchoaNolasco.github.io")  # Establecer el entorno de trabajo
+```
 
-#3. Cargar datos 
-
+El __tercer paso__ será revisar los tipos de variable con ls funcion  y  el calculo de algunos estadistivos univariados
+```{r echo=TRUE, warning=FALSE}
+#3. Cargar datos y sumario de datos
 data_diabetes<-read.csv('./diabetes_prediction_dataset.csv', encoding = 'UTF-8', sep = ';')
 head(data_diabetes)
 str(data_diabetes)
 summary(data_diabetes)
 ```
 
+### __<b style = 'color : blue;'>B. CREACION DE LOS GRUPOS DE ADULTOS - GRUPOS DE INTERES:</b>__
+
+Como __cuarto paso__ será el filtrado por edades, con la finalidad de quedarnos con los grupos de interés. Una vez clasificado los tipos de adultos, por edades, se establece la variable TIPO_ADULTO
+
+```{r echo=TRUE, warning=FALSE}
+#4. Fitrado - creación subset de interés
+## ADULTO JOVEN 25 A 44 años
+diabetes_25_44 <- data_diabetes %>% filter(age >=25) %>% filter(age <=44) %>% mutate(TIPO_ADULTO ="1_Adulto_Jovenes")
+summary(diabetes_25_44)
+```
+
+```{r echo=TRUE, warning=FALSE}
+## ADULTO MADURO-MEDIO 45 a 59 años
+diabetes_45_59 <- data_diabetes %>% filter(age >=45) %>% filter(age <=59) %>% mutate(TIPO_ADULTO ="2_Adulto_Medios")
+summary(diabetes_45_59)
+```
+
+```{r echo=TRUE, warning=FALSE}
+## ADULTO MAYOR 60 a más
+diabetes_60 <- data_diabetes %>% filter(age >=60) %>% mutate(TIPO_ADULTO ="3_Adulto_Mayores")
+summary(diabetes_60)
+```
+
+### __<b style = 'color : blue;'>C. ESTADISTICA DESCRIPTIVA  - GRUPOS DE INTERES:</b>__
+
+__Finalmente__ una vez seleccionado los grupos de interes, se tiene el siguiente dataset actualizado diabetes_Grupoadultos
+Se revisa las variables
+```{r echo=TRUE, warning=FALSE}
+diabetes_Grupoadultos <- bind_rows(diabetes_25_44,diabetes_45_59,diabetes_60)
+str(diabetes_Grupoadultos)
+```
+
+
+Se realiza la tabla de frecuencias 
+```{r echo=TRUE, warning=FALSE}
+freq(diabetes_Grupoadultos$TIPO_ADULTO , style = "rmarkdown", justify = "center", headings = TRUE, report.nas = FALSE)
+
+
+tabla_frecuencia <- table(diabetes_Grupoadultos$TIPO_ADULTO, diabetes_Grupoadultos$gender, diabetes_Grupoadultos$diabetes)
+                               
+# Convertir la tabla de frecuencia en un marco de datos para mejor visualización
+df_tabla_frecuencia <- as.data.frame(tabla_frecuencia)
+colnames(df_tabla_frecuencia) <- c("Tipo de Adulto","Género","Diabetes Si (1) - No (0)","Freq")
+
+# Imprimir la tabla de frecuencias por tipo de adulto y genero
+knitr::kable(df_tabla_frecuencia, caption = "Frecuencia de combinaciones de Tipo de adulto , género y presencia de diabetes")
+```
+
+__Relación entre Glucosa en Sangre y BMI__ en Grupos de Adultos
+```{r echo=TRUE, warning=FALSE}
+library(ggplot2)
+ggplot(diabetes_Grupoadultos, aes(x = blood_glucose_level, y = bmi)) +
+  geom_point(color = "orangered", alpha = .2) +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1)) +
+  labs(x = "blood_glucose_level mg/dl", y = "bmi (kg/m2)", title = "Relación entre Glucosa en Sangre y BMI en Grupos de Adultos\nsin Diabetes (0) y con Diabetes(1)") +
+  facet_grid(TIPO_ADULTO ~ diabetes)
+```
+
 
 
 ```{r echo=TRUE, warning=FALSE}
-#4. Fitrado - creacion subset de interes
+g <-
+  ggplot(diabetes_Grupoadultos, aes(x = TIPO_ADULTO, y = HbA1c_level,
+                   color = TIPO_ADULTO)) +
+    labs(x = "TIPO_ADULTO", y = "HbA1c_level") +
+    scale_color_brewer(palette = "Dark2", guide = "none")
 
-## ADULTO JOVEN 25 A 44 años
-## ADULTO MADURO-MEDIO 45 a 59 años
-## ADULTO MAYOR 60 a más
-diabetes_25_44 <- data_diabetes %>% filter(age >=25) %>% filter(age <=44) %>% mutate(TIPO_ADULTO ="1")
-summary(diabetes_25_44)
+g + geom_boxplot() + facet_wrap(~ diabetes)
+```
 
-diabetes_45_59 <- data_diabetes %>% filter(age >=45) %>% filter(age <=59) %>% mutate(TIPO_ADULTO ="2")
-summary(diabetes_45_59)
 
-diabetes_60 <- data_diabetes %>% filter(age >=60) %>% mutate(TIPO_ADULTO ="3")
-summary(diabetes_60)
+### __<b style = 'color : blue;'>D. Tabla de estadísticos univariados - Adultos jovenes:</b>__
+Se calcula los estadisticos univariados para el grupo de adultos jovenes
 
-diabetes_Grupoadultos <- bind_rows(diabetes_25_44,diabetes_45_59,diabetes_60)
-str(diabetes_Grupoadultos)
+```{r echo=TRUE, warning=FALSE}
+descr(diabetes_25_44$bmi, transpose = TRUE, 
+      stats = c("N.Valid", "min","q1","med","mean","sd","q3","max","iqr"),
+      style = "rmarkdown", justify = "center", headings = T)
+descr(diabetes_25_44$HbA1c_level, transpose = TRUE, 
+      stats = c("N.Valid", "min","q1","med","mean","sd","q3","max","iqr"),
+      style = "rmarkdown", justify = "center", headings = T)
+descr(diabetes_25_44$blood_glucose_level, transpose = TRUE, 
+      stats = c("N.Valid", "min","q1","med","mean","sd","q3","max","iqr"),
+      style = "rmarkdown", justify = "center", headings = T)
+```
+### __<b style = 'color : blue;'>E. Tabla de estadísticos univariados - Adultos medios:</b>__
+Se calcula los estadisticos univariados para el grupo de adultos medios
 
+```{r echo=TRUE, warning=FALSE}
+descr(diabetes_45_59$bmi, transpose = TRUE, 
+      stats = c("N.Valid", "min","q1","med","mean","sd","q3","max","iqr"),
+      style = "rmarkdown", justify = "center", headings = T)
+descr(diabetes_45_59$HbA1c_level, transpose = TRUE, 
+      stats = c("N.Valid", "min","q1","med","mean","sd","q3","max","iqr"),
+      style = "rmarkdown", justify = "center", headings = T)
+descr(diabetes_45_59$blood_glucose_level, transpose = TRUE, 
+      stats = c("N.Valid", "min","q1","med","mean","sd","q3","max","iqr"),
+      style = "rmarkdown", justify = "center", headings = T)
+```
+### __<b style = 'color : blue;'>F. Tabla de estadísticos univariados - Adultos mayores:</b>__
+Se calcula los estadisticos univariados para el grupo de adultos mayores
+
+```{r echo=TRUE, warning=FALSE}
+descr(diabetes_60$bmi, transpose = TRUE, 
+      stats = c("N.Valid", "min","q1","med","mean","sd","q3","max","iqr"),
+      style = "rmarkdown", justify = "center", headings = T)
+descr(diabetes_60$HbA1c_level, transpose = TRUE, 
+      stats = c("N.Valid", "min","q1","med","mean","sd","q3","max","iqr"),
+      style = "rmarkdown", justify = "center", headings = T)
+descr(diabetes_60$blood_glucose_level, transpose = TRUE, 
+      stats = c("N.Valid", "min","q1","med","mean","sd","q3","max","iqr"),
+      style = "rmarkdown", justify = "center", headings = T)
+```
+### Resumen del grupo de Personas con Diabetes
+
+```{r echo=TRUE, warning=FALSE}
 diabetes_Grupoadultos_SI <-diabetes_Grupoadultos %>% filter(diabetes =="1") 
 summary(diabetes_Grupoadultos_SI)
-
-diabetes_Grupoadultos_NO <-diabetes_Grupoadultos %>% filter(diabetes =="0") 
-summary(diabetes_Grupoadultos_NO)
 ```
 
 
 
 
 
+
+### __<b style = 'color : blue;'>G. Analizando la variable  bmi  - Body mass index:</b>__
+__Comentario__ Las medianas de los personas con diabetes son mayores a las que no tienen la enfermedad . Para todos los grupos de adultos.
+
 ```{r echo=TRUE, warning=FALSE}
-########################################################################
-##### diabetes_Grupoadultos_NO
-########################################################################
+
 ## Analizando la variable  bmi  - Body mass index 
 # Boxplot.
+g <-
+  ggplot(diabetes_Grupoadultos, aes(x = TIPO_ADULTO, y = bmi,
+                   color = TIPO_ADULTO)) +
+    labs(x = "TIPO_ADULTO", y = "bmi (kg/m2)", title = "Diagrama de cajas del BMI en Grupos de Adultos\nsin Diabetes (0) y con Diabetes(1)") +
+    scale_color_brewer(palette = "Dark2", guide = "none")
 
-boxplot(bmi ~ TIPO_ADULTO, data = diabetes_Grupoadultos_NO, 
-        xlab = "Tipo de adultos",
-        ylab = "Indice de masa corporal (bmi kg/m2)", 
-        main = "Diagrama de cajas del BMI por tipo de adultos - NO DIABETES",
-        notch = FALSE, 
-        varwidth = TRUE, 
-        col = c("green","red", "blue"),
-        names = c("Joven (25 a 44 años) ",
-                  "Medio (45 a 60 años)",
-                  "Mayor (mayor a 60 años)"))
+g + geom_boxplot() +    stat_boxplot(geom = "errorbar",
+               width = 0.25) + facet_wrap(~ diabetes)
+```
+### __<b style = 'color : blue;'>H. Analizando la variable  HbA1c_level  - Hemoglobina glicosidica:</b>__
+__Comentario__ Las medianas de los personas con diabetes son mayores a las que no tienen la enfermedad  . Para todos los grupos de adultos.
 
+```{r echo=TRUE, warning=FALSE}
 ## Analizando la variable  HbA1c_level  - Hemoglobina glicosidica
-# Boxplot.
-boxplot(HbA1c_level ~ TIPO_ADULTO, data = diabetes_Grupoadultos_NO, 
-        xlab = "Tipo de adultos",
-        ylab = " HbA1c_level (%)", 
-        main = "Diagrama de cajas del HbA1c_level- NO DIABETES",
-        notch = FALSE, 
-        varwidth = TRUE, 
-        col = c("green","red", "blue"),
-        names = c("Joven (25 a 44 años) ",
-                  "Medio (45 a 60 años)",
-                  "Mayor (mayor a 60 años)"))
+g <-
+  ggplot(diabetes_Grupoadultos, aes(x = TIPO_ADULTO, y = HbA1c_level,
+                   color = TIPO_ADULTO)) +
+    labs(x = "TIPO_ADULTO", y = "HbA1c_level %", title = "Diagrama de cajas del HbA1c_level en Grupos de Adultos\nsin Diabetes (0) y con Diabetes(1)") +
+    scale_color_brewer(palette = "Dark2", guide = "none")
 
+g + geom_boxplot() + stat_boxplot(geom = "errorbar",
+               width = 0.25) + facet_wrap(~ diabetes)
+```
+### __<b style = 'color : blue;'>I. Analizando la variable  Glucosa en sangre:</b>__
+
+__Comentario__ Las medianas de los personas con diabetes son mayores a las que no tienen la enfermedad  . Para todos los grupos de adultos.
+```{r echo=TRUE, warning=FALSE}
 ## Analizando la variable   Glucosa en sangre
-# Boxplot.
-boxplot(blood_glucose_level ~ TIPO_ADULTO , data = diabetes_Grupoadultos_NO, 
-            xlab = "Tipo de adultos",
-            ylab = " Glucosa en sangre (mmg/dl)", 
-            main = "Diagrama de cajas del Glucosa en sangre - NO DIABETES",
-            notch = FALSE, 
-            varwidth = TRUE, 
-            col = c("green","red", "blue"),
-            names = c("Joven (25 a 44 años) ",
-                      "Medio (45 a 60 años)",
-                      "Mayor (mayor a 60 años)"))
+g <-
+  ggplot(diabetes_Grupoadultos, aes(x = TIPO_ADULTO, y = blood_glucose_level,
+                   color = TIPO_ADULTO)) +
+    labs(x = "TIPO_ADULTO", y = "blood_glucose_level mg/dl", title = "Diagrama de cajas del Glucosa en sangre en Grupos de Adultos\nsin Diabetes (0) y con Diabetes(1)") +
+    scale_color_brewer(palette = "Dark2", guide = "none")
+
+g + geom_boxplot() + stat_boxplot(geom = "errorbar",
+               width = 0.25) + facet_wrap(~ diabetes)
+```
+
+
+
+### __<b style = 'color : blue;'>J. PRUEBA DE CORRELACION DE PEARSON:</b>__
+
+
+Estamos usando Pearson porque todas las variables tienen una __distribución bastante normal__
+1
+```{r echo=TRUE, warning=FALSE}
+corm <-
+  diabetes_Grupoadultos |>
+  dplyr::select(bmi, blood_glucose_level, HbA1c_level, age,heart_disease,hypertension,diabetes) |>
+  corrr::correlate(diagonal = 1) |>
+  corrr::shave(upper = FALSE)
+
+corm
+```
+
+```{r echo=TRUE, warning=FALSE}
+corm <-
+  diabetes_Grupoadultos |>
+  dplyr::select(bmi, blood_glucose_level, HbA1c_level, age, heart_disease, hypertension) |>
+  corrr::correlate(diagonal = 1) |>
+  corrr::shave(upper = FALSE)
+
+corm
+
+corm <- corm |>
+  tidyr::pivot_longer(
+    cols = -term,
+    names_to = "colname",
+    values_to = "corr"
+  ) |>
+  dplyr::mutate(
+    rowname = forcats::fct_inorder(term),
+    colname = forcats::fct_inorder(colname),
+    label = dplyr::if_else(is.na(corr), "", sprintf("%1.2f", corr))
+  )
+```
+
+
+```{r echo=TRUE, warning=FALSE}
+ggplot(corm, aes(rowname, fct_rev(colname),
+                 fill = corr)) +
+  geom_tile() +
+  geom_text(aes(
+    label = label,
+    color = abs(corr) < .75
+  )) +
+  coord_fixed(expand = FALSE) +
+  scale_color_manual(
+    values = c("white", "black"),
+    guide = "none"
+  ) +
+  scale_fill_distiller(
+    palette = "PuOr", na.value = "white",
+    direction = 1, limits = c(-1, 1),
+    name = "Pearson\nCorrelation:"
+  ) +
+  labs(x = NULL, y = NULL) +
+  theme(panel.border = element_rect(color = NA, fill = NA),
+        legend.position = c(.85, .8))
 ```
