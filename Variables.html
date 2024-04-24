@@ -780,10 +780,7 @@ mayores</p>
 ## |  &amp;nbsp;   | N.Valid  |  Min  |   Q1   | Median |  Mean  | Std.Dev |   Q3   |  Max   |  IQR  |
 ## |:---------:|:--------:|:-----:|:------:|:------:|:------:|:-------:|:------:|:------:|:-----:|
 ## | **value** | 25055.00 | 80.00 | 126.00 | 145.00 | 145.18 |  47.21  | 159.00 | 300.00 | 33.00 |</code></pre>
-</div>
-<div id="resumen-del-grupo-de-personas-con-diabetes"
-class="section level3">
-<h3>Resumen del grupo de Personas con Diabetes</h3>
+<p>Resumen del grupo de Personas con Diabetes</p>
 <pre class="r"><code>diabetes_Grupoadultos_SI &lt;-diabetes_Grupoadultos %&gt;% filter(diabetes ==&quot;1&quot;) 
 summary(diabetes_Grupoadultos_SI)</code></pre>
 <pre><code>##     gender               age         hypertension    heart_disease    smoking_history   
@@ -801,10 +798,10 @@ summary(diabetes_Grupoadultos_SI)</code></pre>
 ##  3rd Qu.:36.03   3rd Qu.:7.500   3rd Qu.:240.0       3rd Qu.:1                     
 ##  Max.   :88.72   Max.   :9.000   Max.   :300.0       Max.   :1</code></pre>
 </div>
-<div id="g.-analizando-la-variable-bmi---body-mass-index"
+<div id="g.-analizando-la-variable-bmi-kgm2---body-mass-index"
 class="section level3">
-<h3><strong><b style = 'color : blue;'>G. Analizando la variable bmi -
-Body mass index:</b></strong></h3>
+<h3><strong><b style = 'color : blue;'>G. Analizando la variable bmi
+(kg/m2) - Body mass index:</b></strong></h3>
 <p><strong>Comentario</strong> Las medianas de los personas con diabetes
 son mayores a las que no tienen la enfermedad . Para todos los grupos de
 adultos.</p>
@@ -818,10 +815,13 @@ g &lt;-
 
 g + geom_boxplot() +    stat_boxplot(geom = &quot;errorbar&quot;,
                width = 0.25) + facet_wrap(~ diabetes)</code></pre>
-<p><img src="Variables_files/figure-html/unnamed-chunk-16-1.png" width="672" />
-### <strong><b style = 'color : blue;'>H. Analizando la variable
-HbA1c_level - Hemoglobina glicosidica:</b></strong>
-<strong>Comentario</strong> Las medianas de los personas con diabetes
+<p><img src="Variables_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+</div>
+<div id="h.-analizando-la-variable-hba1c_level---body-mass-index"
+class="section level3">
+<h3><strong><b style = 'color : blue;'>H. Analizando la variable
+HbA1c_level (%) - Body mass index:</b></strong></h3>
+<p><strong>Comentario</strong> Las medianas de los personas con diabetes
 son mayores a las que no tienen la enfermedad . Para todos los grupos de
 adultos.</p>
 <pre class="r"><code>## Analizando la variable  HbA1c_level  - Hemoglobina glicosidica
@@ -833,9 +833,13 @@ g &lt;-
 
 g + geom_boxplot() + stat_boxplot(geom = &quot;errorbar&quot;,
                width = 0.25) + facet_wrap(~ diabetes)</code></pre>
-<p><img src="Variables_files/figure-html/unnamed-chunk-17-1.png" width="672" />
-### <strong><b style = 'color : blue;'>I. Analizando la variable Glucosa
-en sangre:</b></strong></p>
+<p><img src="Variables_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+</div>
+<div
+id="i.-analizando-la-variable-glucosa-en-sangre-mgdl---body-mass-index"
+class="section level3">
+<h3><strong><b style = 'color : blue;'>I. Analizando la variable Glucosa
+en sangre (mg/dl) - Body mass index:</b></strong></h3>
 <p><strong>Comentario</strong> Las medianas de los personas con diabetes
 son mayores a las que no tienen la enfermedad . Para todos los grupos de
 adultos.</p>
@@ -851,10 +855,10 @@ g + geom_boxplot() + stat_boxplot(geom = &quot;errorbar&quot;,
 <p><img src="Variables_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 </div>
 <div id="j.-prueba-de-correlacion-de-pearson" class="section level3">
-<h3><strong><b style = 'color : blue;'>J. PRUEBA DE CORRELACION DE
-PEARSON:</b></strong></h3>
+<h3><strong><b style = 'color : blue;'>J. Prueba de Correlacion de
+Pearson:</b></strong></h3>
 <p>Estamos usando Pearson porque todas las variables tienen una
-<strong>distribución bastante normal</strong> 1</p>
+<strong>distribución bastante normal</strong></p>
 <pre class="r"><code>corm &lt;-
   diabetes_Grupoadultos |&gt;
   dplyr::select(bmi, blood_glucose_level, HbA1c_level, age,heart_disease,hypertension,diabetes) |&gt;

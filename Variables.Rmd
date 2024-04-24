@@ -188,7 +188,8 @@ descr(diabetes_60$blood_glucose_level, transpose = TRUE,
       stats = c("N.Valid", "min","q1","med","mean","sd","q3","max","iqr"),
       style = "rmarkdown", justify = "center", headings = T)
 ```
-### Resumen del grupo de Personas con Diabetes
+Resumen del grupo de Personas con Diabetes
+
 
 ```{r echo=TRUE, warning=FALSE}
 diabetes_Grupoadultos_SI <-diabetes_Grupoadultos %>% filter(diabetes =="1") 
@@ -200,8 +201,10 @@ summary(diabetes_Grupoadultos_SI)
 
 
 
-### __<b style = 'color : blue;'>G. Analizando la variable  bmi  - Body mass index:</b>__
+### __<b style = 'color : blue;'>G. Analizando la variable  bmi (kg/m2) - Body mass index:</b>__
+
 __Comentario__ Las medianas de los personas con diabetes son mayores a las que no tienen la enfermedad . Para todos los grupos de adultos.
+
 
 ```{r echo=TRUE, warning=FALSE}
 
@@ -216,8 +219,12 @@ g <-
 g + geom_boxplot() +    stat_boxplot(geom = "errorbar",
                width = 0.25) + facet_wrap(~ diabetes)
 ```
-### __<b style = 'color : blue;'>H. Analizando la variable  HbA1c_level  - Hemoglobina glicosidica:</b>__
+
+
+### __<b style = 'color : blue;'>H. Analizando la variable  HbA1c_level (%) - Body mass index:</b>__
+
 __Comentario__ Las medianas de los personas con diabetes son mayores a las que no tienen la enfermedad  . Para todos los grupos de adultos.
+
 
 ```{r echo=TRUE, warning=FALSE}
 ## Analizando la variable  HbA1c_level  - Hemoglobina glicosidica
@@ -230,9 +237,12 @@ g <-
 g + geom_boxplot() + stat_boxplot(geom = "errorbar",
                width = 0.25) + facet_wrap(~ diabetes)
 ```
-### __<b style = 'color : blue;'>I. Analizando la variable  Glucosa en sangre:</b>__
+
+
+### __<b style = 'color : blue;'>I. Analizando la variable  Glucosa en sangre (mg/dl) - Body mass index:</b>__
 
 __Comentario__ Las medianas de los personas con diabetes son mayores a las que no tienen la enfermedad  . Para todos los grupos de adultos.
+
 ```{r echo=TRUE, warning=FALSE}
 ## Analizando la variable   Glucosa en sangre
 g <-
@@ -247,11 +257,12 @@ g + geom_boxplot() + stat_boxplot(geom = "errorbar",
 
 
 
-### __<b style = 'color : blue;'>J. PRUEBA DE CORRELACION DE PEARSON:</b>__
+### __<b style = 'color : blue;'>J. Prueba de Correlacion de Pearson:</b>__
 
 
 Estamos usando Pearson porque todas las variables tienen una __distribución bastante normal__
-1
+
+
 ```{r echo=TRUE, warning=FALSE}
 corm <-
   diabetes_Grupoadultos |>
@@ -261,6 +272,7 @@ corm <-
 
 corm
 ```
+
 
 ```{r echo=TRUE, warning=FALSE}
 corm <-
